@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Card, Form } from 'react-bootstrap';
-import { Button } from 'antd'
+import { Button, Input, Row  } from 'antd'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 function Todo({ todo, index, markTodo, removeTodo }) {
@@ -14,7 +15,7 @@ function Todo({ todo, index, markTodo, removeTodo }) {
       <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
       <div>
         <Button type="primary" ghost onClick={() => markTodo(index)}>✓</Button>{' '}
-        <Button type="primary" ghost onClick={() => removeTodo(index)}>✕</Button>
+        <Button type="primary" ghost onClick={() => removeTodo(index)} danger>✕</Button>
       </div>
     </div>
   );
@@ -34,11 +35,13 @@ function FormTodo({ addTodo }) {
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Label><b>Add Todo</b></Form.Label>
-        <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo" />
       </Form.Group>
-      <Button variant="primary mb-3" type="submit">
+      <Input type="text" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo"></Input>
+      <Row justify="center">
+      <Button type="submit" onClick={handleSubmit} >
         Submit
       </Button>
+      </Row>
     </Form>
   );
 }
