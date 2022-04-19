@@ -1,9 +1,10 @@
 import React from "react";
 import "./App.css";
-import { Card, Form } from 'react-bootstrap';
-import { Button } from 'antd'
+import { Button, Layout, Input } from 'antd'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+const { Content } = Layout;
 
 function Todo({ todo, index, markTodo, removeTodo }) {
   return (
@@ -30,17 +31,26 @@ function FormTodo({ addTodo }) {
     setValue("");
   };
 
+  // return (
+  //   <Form onSubmit={handleSubmit}>
+  //     <Form.Group>
+  //       <Form.Label><b>Add Todo</b></Form.Label>
+  //       <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo" />
+  //     </Form.Group>
+  //     <Button variant="primary mb-3" type="submit">
+  //       Submit
+  //     </Button>
+  //   </Form>
+  // );  
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Label><b>Add Todo</b></Form.Label>
-        <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo" />
-      </Form.Group>
-      <Button variant="primary mb-3" type="submit">
-        Submit
-      </Button>
-    </Form>
-  );
+    <Layout>
+      <Content>
+        <p>Add Todo</p>
+        <Input type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo"/>
+        <Button onClick={handleSubmit} type = "submit">Submit</Button>
+      </Content>
+    </Layout>
+  ) 
 }
 
 function App() {
@@ -75,8 +85,8 @@ function App() {
         <FormTodo addTodo={addTodo} />
         <div>
           {todos.map((todo, index) => (
-            <Card>
-              <Card.Body>
+            <Layout>
+              <Content>
                 <Todo
                   key={index}
                   index={index}
@@ -84,8 +94,8 @@ function App() {
                   markTodo={markTodo}
                   removeTodo={removeTodo}
                 />
-              </Card.Body>
-            </Card>
+              </Content>
+            </Layout>
           ))}
         </div>
       </div>
