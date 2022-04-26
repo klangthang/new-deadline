@@ -1,9 +1,11 @@
 import React from "react";
-import {useState} from 'react';
 import "./App.css";
 import { Card, Form } from 'react-bootstrap';
-import { Button, Input, Row, Space, Col  } from 'antd'
+import { Button, Input, Row, Col, Menu } from 'antd'
+import { Dropdown } from 'antd';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 
@@ -14,7 +16,7 @@ function Todo({ todo, index, markTodo, removeTodo }) {
 
     >
       <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
-      <div style={{justifyContent: "space-between"}}>
+      <div style={{ justifyContent: "space-between" }}>
         <Button type="primary" ghost onClick={() => markTodo(index)}>✓</Button>{' '}
         <Button type="primary" ghost onClick={() => removeTodo(index)} danger>✕</Button>
       </div>
@@ -24,7 +26,6 @@ function Todo({ todo, index, markTodo, removeTodo }) {
 
 function FormTodo({ addTodo }) {
   const [value, setValue] = React.useState("");
-  const [size,setSize] = useState("medium");
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -33,23 +34,42 @@ function FormTodo({ addTodo }) {
     setValue("");
   };
 
+  const menu = (
+    <Menu>
+      <Menu.Item key="1">
+        <Button href="https://www.google.com">
+          Trung
+        </Button>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Button href="https://www.google.com">
+          Khang
+        </Button>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="4">Logout</Menu.Item>
+    </Menu>
+  );
+
   return (
-    
+
     <Form onSubmit={handleSubmit}>
       <Form.Group>
-        <Form.Label><b>Add Todo</b></Form.Label>
+        <Dropdown overlay={menu} placement="bottom" arrow>
+          <Button>User</Button>
+        </Dropdown>
       </Form.Group>
       <Col>
-      <Input type="text" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo"></Input>
+        <Input type="text" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo"></Input>
       </Col>
       <Row justify="center">
-      <Button type="submit" onClick={handleSubmit} style={{marginTop:20}}>
-        Submit
-      </Button>
+        <Button type="submit" onClick={handleSubmit} style={{ marginTop: 20 }}>
+          Submit
+        </Button>
       </Row>
     </Form>
-    
-    
+
+
   );
 }
 
@@ -85,7 +105,7 @@ function App() {
         <FormTodo addTodo={addTodo} />
         <div>
           {todos.map((todo, index) => (
-            <Card style={{ margin:20}}>
+            <Card style={{ margin: 20 }}>
               <Card.Body>
                 <Todo
                   key={index}
